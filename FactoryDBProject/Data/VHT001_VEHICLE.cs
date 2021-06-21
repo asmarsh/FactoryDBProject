@@ -11,7 +11,7 @@ namespace FactoryDBProject.Data
         [Key]
         public int VehicleNo { get; set; }
 
-        public byte VehicleTypeCode { get; set; }
+        public int? VehicleTypeCode { get; set; }
 
         [StringLength(50)]
         public string VehicleId { get; set; }
@@ -22,5 +22,7 @@ namespace FactoryDBProject.Data
 
         [Column(TypeName = "smalldatetime")]
         public DateTime? VehicleAddDateTime { get; set; }
+
+        public virtual VehicleType VehicleType { get; set; }
     }
 }

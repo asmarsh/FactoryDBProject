@@ -60,7 +60,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data\Vehicle.cs" />
+    <Compile Include="Data\Vehicles.cs" />
+    <Compile Include="Data\VehicleType.cs" />
     <Compile Include="Data\VHT001_VEHICLE.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -75,6 +76,13 @@
     <Content Include="App_Data\VehicleDB_log.ldf">
       <DependentUpon>VehicleDB.mdf</DependentUpon>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="VehicleDB.mdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="VehicleDB_log.ldf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <DependentUpon>VehicleDB.mdf</DependentUpon>
     </Content>
   </ItemGroup>
   <ItemGroup />
