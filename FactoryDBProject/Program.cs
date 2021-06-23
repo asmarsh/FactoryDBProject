@@ -104,12 +104,14 @@ namespace FactoryDBProject
                     vehicle.VehicleTypeCode = (int?)Constants.VehicleType.Other;
                     break;
             }
+            vehicle.VehicleAddDateTime = DateTime.Now;
 
             using (var ctx = new VehiclesContext())
 
             {
                 ctx.VHT001_VEHICLE.Add(vehicle);
                 ctx.SaveChanges();
+                Console.WriteLine($"{nameof(vehicle.VehicleId)} {vehicle.VehicleId} added");
             }
 
             return true;
@@ -122,41 +124,37 @@ namespace FactoryDBProject
 
         private static bool RetrieveVehicle()
         {
-            Console.WriteLine("Enter vehicle number:");
-            var vehicleNumber = Console.ReadLine();
-            if (int.TryParse(vehicleNumber, out var parsedVehicleNumber))
+            Console.WriteLine("Enter vehicle id:");
+            var vehicleId = Console.ReadLine();
+            VHT001_VEHICLE vehicle;
+            using (var ctx = new VehiclesContext())
             {
-                VHT001_VEHICLE vehicle;
-                using (var ctx = new VehiclesContext())
-                {
-                    vehicle = ctx.VHT001_VEHICLE.FirstOrDefault(x => x.VehicleNo == parsedVehicleNumber);
-                }
-                if (vehicle != null)
-                {
-                    Console.WriteLine(vehicle.ToString());
-                    return true;
-                }
+                vehicle = ctx.VHT001_VEHICLE.FirstOrDefault(x => x.VehicleId == vehicleId);
             }
-            throw new ArgumentException($"{nameof(vehicleNumber)} {vehicleNumber} not found");
+            if (vehicle != null)
+            {
+                Console.WriteLine(vehicle.ToString());
+                return true;
+            }
+            throw new ArgumentException($"{nameof(vehicleId)} {vehicleId} not found");
         }
 
         private static bool DeleteVehicle()
         {
-            Console.WriteLine("Enter vehicle number:");
-            var vehicleNumber = Console.ReadLine();
-            if (int.TryParse(vehicleNumber, out var parsedVehicleNumber))
-            {
-                using (var ctx = new VehiclesContext())
-                {
-                    var vehicleToDelete = ctx.VHT001_VEHICLE.FirstOrDefault(x => x.VehicleNo == parsedVehicleNumber);
-                    if (vehicleToDelete == null) return false;
-                    ctx.VHT001_VEHICLE.Remove(vehicleToDelete);
-                    ctx.SaveChanges();
-                }
+            Console.WriteLine("Enter vehicle id:");
+            var vehicleId = Console.ReadLine();
 
-                return true;
+            using (var ctx = new VehiclesContext())
+            {
+                var vehicleToDelete = ctx.VHT001_VEHICLE.FirstOrDefault(x => x.VehicleId == vehicleId);
+                if (vehicleToDelete == null) return false;
+                ctx.VHT001_VEHICLE.Remove(vehicleToDelete);
+                ctx.SaveChanges();
             }
-            throw new ArgumentException($"{nameof(vehicleNumber)} {vehicleNumber} not found");
+
+            return true;
+
+            throw new ArgumentException($"{nameof(vehicleId)} {vehicleId} not found");
         }
     }
 }
