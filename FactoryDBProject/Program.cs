@@ -96,7 +96,7 @@ namespace FactoryDBProject
                     vehicle.VehicleTypeCode = (int?)Constants.VehicleType.Truck;
                     break;
 
-                case "BOAT:":
+                case "BOAT":
                     vehicle.VehicleTypeCode = (int?)Constants.VehicleType.Boat;
                     break;
 
@@ -142,7 +142,7 @@ namespace FactoryDBProject
                             vehicle.VehicleTypeCode = (int?)Constants.VehicleType.Truck;
                             break;
 
-                        case "BOAT:":
+                        case "BOAT":
                             vehicle.VehicleTypeCode = (int?)Constants.VehicleType.Boat;
                             break;
 
