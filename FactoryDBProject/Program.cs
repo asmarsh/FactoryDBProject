@@ -11,50 +11,70 @@ namespace FactoryDBProject
     {
         private static void Main(string[] args)
         {
-            Console.WriteLine("Select an option:");
-            Console.WriteLine("(1) Add a vehicle");
-            Console.WriteLine("(2) Update a vehicle");
-            Console.WriteLine("(3) Retrieve a vehicle");
-            Console.WriteLine("(4) Delete a vehicle");
-
-            var selection = Console.ReadLine();
-            bool success;
-            if (int.TryParse(selection.ToString(), out var parsed) && parsed >= 1 && parsed <= 4)
+            try
             {
-                switch (parsed)
+                Console.WriteLine("Select an option:");
+                Console.WriteLine("(1) Add a vehicle");
+                Console.WriteLine("(2) Update a vehicle");
+                Console.WriteLine("(3) Retrieve a vehicle");
+                Console.WriteLine("(4) Delete a vehicle");
+                Console.WriteLine("(5) Exit");
+
+                var selection = Console.ReadLine();
+                bool success;
+                if (int.TryParse(selection.ToString(), out var parsed) && parsed >= 1 && parsed <= 5)
                 {
-                    case 1:
-                        success = AddVehicle();
-                        break;
+                    switch (parsed)
+                    {
+                        case 1:
+                            success = AddVehicle();
+                            break;
 
-                    case 2:
-                        success = UpdateVehicle();
-                        break;
+                        case 2:
+                            success = UpdateVehicle();
+                            break;
 
-                    case 3:
-                        success = RetrieveVehicle();
-                        break;
+                        case 3:
+                            success = RetrieveVehicle();
+                            break;
 
-                    case 4:
-                        success = DeleteVehicle();
-                        break;
+                        case 4:
+                            success = DeleteVehicle();
+                            break;
 
-                    default:
-                        throw new ArgumentOutOfRangeException();
+                        case 5:
+                            Environment.Exit(1);
+                            success = true;
+                            break;
+
+                        default:
+                            throw new ArgumentOutOfRangeException(selection, "Selection must be a numeric value between 1 and 5");
+                    }
+                }
+                else
+                {
+                    throw new ArgumentOutOfRangeException(selection, "Selection must be a numeric value between 1 and 5");
+                }
+                if (success)
+                {
+                    Console.WriteLine("Operation succeeded.");
+                }
+                else
+                {
+                    Console.WriteLine("Operation failed.");
                 }
             }
-            else
+            catch (ArgumentOutOfRangeException ex)
             {
-                throw new ArgumentOutOfRangeException();
+                Console.WriteLine("Invalid selection");
+                Console.WriteLine(ex.Message);
             }
-            if (success)
+            catch (ArgumentException ex)
             {
-                Console.WriteLine("Operation succeeded.");
+                Console.WriteLine("Invalid selection");
+                Console.WriteLine(ex.Message);
             }
-            else
-            {
-                Console.WriteLine("Operation failed.");
-            }
+            Main(null);
         }
 
         private static bool AddVehicle()
@@ -117,7 +137,7 @@ namespace FactoryDBProject
                     return true;
                 }
             }
-            return false;
+            throw new ArgumentException($"{nameof(vehicleNumber)} {vehicleNumber} not found");
         }
 
         private static bool DeleteVehicle()
@@ -136,7 +156,7 @@ namespace FactoryDBProject
 
                 return true;
             }
-            return false;
+            throw new ArgumentException($"{nameof(vehicleNumber)} {vehicleNumber} not found");
         }
     }
 }
