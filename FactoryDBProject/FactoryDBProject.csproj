@@ -60,8 +60,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Data\Vehicles.cs" />
-    <Compile Include="Data\VehicleType.cs" />
+    <Compile Include="Constants.cs" />
+    <Compile Include="Data\VehiclesContext.cs" />
     <Compile Include="Data\VHT001_VEHICLE.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

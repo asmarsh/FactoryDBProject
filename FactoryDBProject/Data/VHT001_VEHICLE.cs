@@ -23,6 +23,9 @@ namespace FactoryDBProject.Data
         [Column(TypeName = "smalldatetime")]
         public DateTime? VehicleAddDateTime { get; set; }
 
-        public virtual VehicleType VehicleType { get; set; }
+        public override string ToString()
+        {
+            return $"{nameof(VehicleNo)}: {VehicleNo}, {nameof(VehicleId)}: {VehicleId}, {nameof(VehicleColor)}: {VehicleColor}, {nameof(VehicleAddDateTime)}: {VehicleAddDateTime}, VehicleType: {(Constants.VehicleType)VehicleTypeCode}";
+        }
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FactoryDBProject.Data;
 
 namespace FactoryDBProject
 {
@@ -16,7 +17,7 @@ namespace FactoryDBProject
             Console.WriteLine("(3) Retrieve a vehicle");
             Console.WriteLine("(4) Delete a vehicle");
 
-            var selection = Console.ReadKey();
+            var selection = Console.ReadLine();
             bool success;
             if (int.TryParse(selection.ToString(), out var parsed) && parsed >= 1 && parsed <= 4)
             {
@@ -50,11 +51,48 @@ namespace FactoryDBProject
             {
                 Console.WriteLine("Operation succeeded.");
             }
+            else
+            {
+                Console.WriteLine("Operation failed.");
+            }
         }
 
         private static bool AddVehicle()
         {
-            throw new NotImplementedException();
+            var vehicle = new VHT001_VEHICLE();
+            Console.WriteLine("Enter Vehicle Id:");
+            vehicle.VehicleId = Console.ReadLine();
+            Console.WriteLine("Enter Vehicle Color:");
+            vehicle.VehicleColor = Console.ReadLine();
+            Console.WriteLine("Enter Vehicle Type:");
+            var vehicleType = Console.ReadLine().ToUpper();
+            switch (vehicleType)
+            {
+                case "CAR":
+                    vehicle.VehicleTypeCode = (int?)Constants.VehicleType.Car;
+                    break;
+
+                case "TRUCK":
+                    vehicle.VehicleTypeCode = (int?)Constants.VehicleType.Truck;
+                    break;
+
+                case "BOAT:":
+                    vehicle.VehicleTypeCode = (int?)Constants.VehicleType.Boat;
+                    break;
+
+                default:
+                    vehicle.VehicleTypeCode = (int?)Constants.VehicleType.Other;
+                    break;
+            }
+
+            using (var ctx = new VehiclesContext())
+
+            {
+                ctx.VHT001_VEHICLE.Add(vehicle);
+                ctx.SaveChanges();
+            }
+
+            return true;
         }
 
         private static bool UpdateVehicle()
@@ -64,12 +102,41 @@ namespace FactoryDBProject
 
         private static bool RetrieveVehicle()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Enter vehicle number:");
+            var vehicleNumber = Console.ReadLine();
+            if (int.TryParse(vehicleNumber, out var parsedVehicleNumber))
+            {
+                VHT001_VEHICLE vehicle;
+                using (var ctx = new VehiclesContext())
+                {
+                    vehicle = ctx.VHT001_VEHICLE.FirstOrDefault(x => x.VehicleNo == parsedVehicleNumber);
+                }
+                if (vehicle != null)
+                {
+                    Console.WriteLine(vehicle.ToString());
+                    return true;
+                }
+            }
+            return false;
         }
 
         private static bool DeleteVehicle()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Enter vehicle number:");
+            var vehicleNumber = Console.ReadLine();
+            if (int.TryParse(vehicleNumber, out var parsedVehicleNumber))
+            {
+                using (var ctx = new VehiclesContext())
+                {
+                    var vehicleToDelete = ctx.VHT001_VEHICLE.FirstOrDefault(x => x.VehicleNo == parsedVehicleNumber);
+                    if (vehicleToDelete == null) return false;
+                    ctx.VHT001_VEHICLE.Remove(vehicleToDelete);
+                    ctx.SaveChanges();
+                }
+
+                return true;
+            }
+            return false;
         }
     }
 }
