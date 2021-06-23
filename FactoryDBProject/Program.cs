@@ -119,7 +119,42 @@ namespace FactoryDBProject
 
         private static bool UpdateVehicle()
         {
-            throw new NotImplementedException();
+            Console.WriteLine("Enter vehicle id:");
+            var vehicleId = Console.ReadLine();
+            VHT001_VEHICLE vehicle;
+            using (var ctx = new VehiclesContext())
+            {
+                vehicle = ctx.VHT001_VEHICLE.FirstOrDefault(x => x.VehicleId == vehicleId);
+
+                if (vehicle != null)
+                {
+                    Console.WriteLine("Enter Vehicle Color:");
+                    vehicle.VehicleColor = Console.ReadLine();
+                    Console.WriteLine("Enter Vehicle Type:");
+                    var vehicleType = Console.ReadLine().ToUpper();
+                    switch (vehicleType)
+                    {
+                        case "CAR":
+                            vehicle.VehicleTypeCode = (int?)Constants.VehicleType.Car;
+                            break;
+
+                        case "TRUCK":
+                            vehicle.VehicleTypeCode = (int?)Constants.VehicleType.Truck;
+                            break;
+
+                        case "BOAT:":
+                            vehicle.VehicleTypeCode = (int?)Constants.VehicleType.Boat;
+                            break;
+
+                        default:
+                            vehicle.VehicleTypeCode = (int?)Constants.VehicleType.Other;
+                            break;
+                    }
+                    ctx.SaveChanges();
+                    return true;
+                }
+            }
+            return false;
         }
 
         private static bool RetrieveVehicle()
