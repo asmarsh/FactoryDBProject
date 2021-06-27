@@ -35,19 +35,19 @@ namespace FactoryDBProject
                     switch (parsed)
                     {
                         case 1:
-                            success = AddVehicle();
+                            success = DataConnection.Create();
                             break;
 
                         case 2:
-                            success = UpdateVehicle();
+                            success = DataConnection.Update();
                             break;
 
                         case 3:
-                            success = RetrieveVehicle();
+                            success = DataConnection.Read();
                             break;
 
                         case 4:
-                            success = DeleteVehicle();
+                            success = DataConnection.Delete();
                             break;
 
                         case 5:
@@ -83,26 +83,6 @@ namespace FactoryDBProject
                 Console.WriteLine(ex.Message);
             }
             Main(null);
-        }
-
-        private static bool AddVehicle()
-        {
-            return DataConnection.Create();
-        }
-
-        private static bool UpdateVehicle()
-        {
-            return DataConnection.Update();
-        }
-
-        private static bool RetrieveVehicle()
-        {
-            return DataConnection.Read();
-        }
-
-        private static bool DeleteVehicle()
-        {
-            return DataConnection.Delete();
         }
     }
 }
