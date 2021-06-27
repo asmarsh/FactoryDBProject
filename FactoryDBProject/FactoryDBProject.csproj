@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Constants.cs" />
+    <Compile Include="DataConnection\ConnectionFactory.cs" />
     <Compile Include="Data\VehiclesContext.cs" />
     <Compile Include="Data\VHT001_VEHICLE.cs" />
     <Compile Include="DataConnection\AccessConnection.cs" />

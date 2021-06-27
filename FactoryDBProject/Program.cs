@@ -10,8 +10,13 @@ namespace FactoryDBProject
 {
     internal class Program
     {
+        public static IDataConnection DataConnection;
+
         private static void Main(string[] args)
         {
+            var factory = new ConnectionFactory();
+            DataConnection = factory.GetConnection("SQL");
+
             try
             {
                 Console.WriteLine("Select an option:");
@@ -80,30 +85,22 @@ namespace FactoryDBProject
 
         private static bool AddVehicle()
         {
-            var reader = new SqlConnection();
-
-            return reader.Create();
+            return DataConnection.Create();
         }
 
         private static bool UpdateVehicle()
         {
-            var reader = new SqlConnection();
-
-            return reader.Update();
+            return DataConnection.Update();
         }
 
         private static bool RetrieveVehicle()
         {
-            var reader = new SqlConnection();
-
-            return reader.Read();
+            return DataConnection.Read();
         }
 
         private static bool DeleteVehicle()
         {
-            var reader = new SqlConnection();
-
-            return reader.Delete();
+            return DataConnection.Delete();
         }
     }
 }
