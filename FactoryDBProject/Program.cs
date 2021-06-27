@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,12 +11,13 @@ namespace FactoryDBProject
 {
     internal class Program
     {
-        public static IDataConnection DataConnection;
+        internal static IDataConnection DataConnection;
 
         private static void Main(string[] args)
         {
+            string dbConfig = ConfigurationManager.AppSettings["DbConfig"];
             var factory = new ConnectionFactory();
-            DataConnection = factory.GetConnection("SQL");
+            DataConnection = factory.GetConnection(dbConfig);
 
             try
             {
