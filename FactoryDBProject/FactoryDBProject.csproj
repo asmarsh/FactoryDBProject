@@ -63,6 +63,9 @@
     <Compile Include="Constants.cs" />
     <Compile Include="Data\VehiclesContext.cs" />
     <Compile Include="Data\VHT001_VEHICLE.cs" />
+    <Compile Include="DataConnection\AccessConnection.cs" />
+    <Compile Include="DataConnection\IDataConnection.cs" />
+    <Compile Include="DataConnection\SqlConnection.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
