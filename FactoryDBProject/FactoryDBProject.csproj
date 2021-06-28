@@ -63,7 +63,6 @@
   <ItemGroup>
     <Compile Include="Constants.cs" />
     <Compile Include="DataConnection\ConnectionFactory.cs" />
-    <Compile Include="Data\AccessContext.cs" />
     <Compile Include="Data\VehiclesContext.cs" />
     <Compile Include="Data\VHT001_VEHICLE.cs" />
     <Compile Include="DataConnection\AccessConnection.cs" />
@@ -76,17 +75,13 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\VehicleDB.accdb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="App_Data\VehicleDB.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="App_Data\VehicleDB_log.ldf">
-      <DependentUpon>VehicleDB.mdf</DependentUpon>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="VehicleDB.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="VehicleDB_log.ldf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>VehicleDB.mdf</DependentUpon>
     </Content>
