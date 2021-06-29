@@ -6,11 +6,14 @@ using System.Threading.Tasks;
 using System.Data.OleDb;
 using System.Data;
 using FactoryDBProject.Data;
+using System.Configuration;
 
 namespace FactoryDBProject.DataConnection
 {
     internal class AccessConnection : IDataConnection
     {
+        private static readonly string connectionString = ConfigurationManager.ConnectionStrings["Access"].ConnectionString;
+
         public bool Create()
         {
             var vehicle = new VHT001_VEHICLE();
@@ -40,7 +43,7 @@ namespace FactoryDBProject.DataConnection
             }
             vehicle.VehicleAddDateTime = DateTime.Now;
 
-            using (var cn = new OleDbConnection("Access"))
+            using (var cn = new OleDbConnection(connectionString))
             {
                 using (OleDbCommand cm = new OleDbCommand(sqlInsert, cn))
                 {
@@ -83,7 +86,7 @@ namespace FactoryDBProject.DataConnection
             Console.WriteLine("Enter vehicle id:");
             var vehicleId = Console.ReadLine();
 
-            using (OleDbConnection cn = new OleDbConnection("Access"))
+            using (OleDbConnection cn = new OleDbConnection(connectionString))
             {
                 using (OleDbCommand cm = new OleDbCommand(sqlDelete, cn))
                 {
@@ -105,11 +108,11 @@ namespace FactoryDBProject.DataConnection
             Console.WriteLine("Enter vehicle id:");
             var vehicleId = Console.ReadLine();
 
-            using (var cn = new OleDbConnection("Access"))
+            using (var cn = new OleDbConnection(connectionString))
             {
                 using (var cm = new OleDbCommand(sqlSelect, cn))
                 {
-                    var pm = new OleDbParameter("@VehicleId", OleDbType.Integer, 4);
+                    var pm = new OleDbParameter("@VehicleId", OleDbType.VarChar, 50);
                     pm.Direction = ParameterDirection.Input;
                     pm.Value = vehicleId;
                     cm.Parameters.Add(pm);
@@ -166,7 +169,7 @@ namespace FactoryDBProject.DataConnection
                     break;
             }
 
-            using (OleDbConnection cn = new OleDbConnection("Access"))
+            using (OleDbConnection cn = new OleDbConnection(connectionString))
             {
                 using (OleDbCommand cm = new OleDbCommand(sqlUpdate, cn))
                 {
